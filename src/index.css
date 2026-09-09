@@ -1,0 +1,128 @@
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+
+  /* Spa Luxe Palette */
+  --bg-main: #FBF9F7;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-soft: #F6F2EE;
+  --bg-accent-soft: #FCEFEF;
+
+  /* Rose Gold / Dusty Pink Brand Accent */
+  --brand-primary: #D47A83;
+  --brand-primary-hover: #C0646D;
+  --brand-primary-light: #FDF1F3;
+  --brand-primary-border: #F3C4CB;
+  
+  /* Gold Champagne Accents */
+  --brand-gold: #C59B63;
+  --brand-gold-light: #FBF4EA;
+  --brand-gold-border: #EEDBC5;
+
+  /* Success & Status Colors */
+  --color-success: #2E7D5B;
+  --color-success-bg: #EAF6F0;
+  --color-success-border: #B7E4CF;
+
+  --color-pending: #C27803;
+  --color-pending-bg: #FEF6E7;
+  --color-pending-border: #FADCA5;
+
+  --color-canceled: #A34E57;
+  --color-canceled-bg: #FDF0F1;
+  --color-canceled-border: #F3CCD1;
+
+  /* Typography Colors */
+  --text-main: #2A2725;
+  --text-muted: #78726D;
+  --text-subtle: #A39D98;
+  --text-inverse: #FFFFFF;
+
+  /* Borders & Shadows */
+  --border-light: #EBE5E0;
+  --border-focus: #D47A83;
+  
+  --shadow-sm: 0 2px 6px rgba(42, 39, 37, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(42, 39, 37, 0.07), 0 2px 6px rgba(42, 39, 37, 0.03);
+  --shadow-lg: 0 20px 40px -8px rgba(42, 39, 37, 0.09), 0 4px 12px rgba(42, 39, 37, 0.04);
+  --shadow-glow: 0 8px 25px rgba(212, 122, 131, 0.25);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(212, 122, 131, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(197, 155, 99, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.2s ease;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #DFD7CF;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C4B9AF;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 122, 131, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(212, 122, 131, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
