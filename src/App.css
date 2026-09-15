@@ -263,7 +263,7 @@ body {
 
 .home-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(290px, 0.9fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
   align-items: start;
 }
@@ -271,6 +271,10 @@ body {
 .home-calendar-panel,
 .home-day-panel {
   padding: 18px 18px 20px;
+}
+
+.home-day-panel {
+  grid-column: 1 / -1;
 }
 
 .compact-top-controls {
@@ -1115,6 +1119,14 @@ body {
   .table-headline {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .home-day-panel {
+    grid-column: auto;
   }
 
   .schedule-card {

@@ -562,17 +562,17 @@ export default function App() {
       <main className="main-panel">
         {activeView === 'inicio' ? (
           <section className="home-view">
-            <button className="income-day-card" onClick={() => setShowIncomeHistoryModal(true)}>
-              <div className="income-day-icon">
-                <DollarSign size={24} />
-              </div>
-              <div className="income-day-copy">
-                <span>Ingresos del Día</span>
-                <strong>{formatMoney(todayMetrics.earnedRevenue)}</strong>
-              </div>
-            </button>
-
             <div className="home-layout">
+              <button className="income-day-card" onClick={() => setShowIncomeHistoryModal(true)}>
+                <div className="income-day-icon">
+                  <DollarSign size={24} />
+                </div>
+                <div className="income-day-copy">
+                  <span>Ingresos del Día</span>
+                  <strong>{formatMoney(todayMetrics.earnedRevenue)}</strong>
+                </div>
+              </button>
+
               <div className="home-calendar-panel spa-card">
                 <div className="calendar-header-banner">
                   <div>
