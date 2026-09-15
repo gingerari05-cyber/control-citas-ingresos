@@ -863,9 +863,7 @@ export default function App() {
                           {hours ? <span>{hours}</span> : <span className="closed-label">CERRADO</span>}
                         </td>
                         <td className="schedule-appointments-cell">
-                          {!hours ? (
-                            <span className="closed-note">CERRADO</span>
-                          ) : appointments.length === 0 ? (
+                          {hours && (appointments.length === 0 ? (
                             <span className="no-scheduled-appointments">Sin citas programadas</span>
                           ) : (
                             <div className="scheduled-appointment-list">
@@ -879,7 +877,7 @@ export default function App() {
                                 </div>
                               ))}
                             </div>
-                          )}
+                          ))}
                         </td>
                       </tr>
                     ))}
