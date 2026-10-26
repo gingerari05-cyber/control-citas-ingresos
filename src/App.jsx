@@ -105,7 +105,6 @@ export default function App() {
   const [citas, setCitas] = useState([])
   const [loading, setLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isOnline, setIsOnline] = useState(() => isSupabaseConfigured())
   const [session, setSession] = useState(null)
   const [isAuthLoading, setIsAuthLoading] = useState(() => Boolean(supabase))
   const [authMode, setAuthMode] = useState('login')
@@ -232,7 +231,6 @@ export default function App() {
   const reloadFromSupabase = useCallback(async () => {
     const userId = session?.user?.id
     if (!isSupabaseConfigured() || !userId) {
-      setIsOnline(false)
       showToast('Inicia sesión para cargar tus citas.', 'error')
       return
     }
@@ -249,10 +247,8 @@ export default function App() {
       if (error) throw error
 
       setCitas(data || [])
-      setIsOnline(true)
     } catch (err) {
       console.error('No se pudo sincronizar con Supabase:', err)
-      setIsOnline(false)
       setCitas([])
       showToast('Error de conexión a Supabase.', 'error')
     } finally {
@@ -299,12 +295,10 @@ export default function App() {
         if (error) throw error
         if (isMounted) {
           setCitas(data || [])
-          setIsOnline(true)
         }
       } catch (err) {
         console.error('Error en sincronización inicial con Supabase:', err)
         if (isMounted) {
-          setIsOnline(false)
           setCitas([])
           showToast('No se pudieron cargar tus citas. Revisa tu conexión o la configuración de acceso.', 'error')
         }
@@ -450,6 +444,14 @@ export default function App() {
       showToast('Por favor escribe el nombre de la clienta.', 'error')
       return
     }
+    if (!isSupabaseConfigured() || !supabase) {
+      showToast('Supabase no está configurado en esta compilación de la app.', 'error')
+      return
+    }
+    if (!session?.user?.id) {
+      showToast('Tu sesión no está activa. Inicia sesión de nuevo para guardar la cita.', 'error')
+      return
+    }
 
     const payload = {
       user_id: session.user.id,
@@ -463,49 +465,41 @@ export default function App() {
 
     setIsSubmitting(true)
 
-    if (isOnline && isSupabaseConfigured()) {
-      try {
-        if (editingCitaId !== null) {
-          const { data, error } = await supabase
-            .from('citas')
-            .update(payload)
-            .eq('id', editingCitaId)
-            .eq('user_id', session.user.id)
-            .select()
+    try {
+      if (editingCitaId !== null) {
+        const { data, error } = await supabase
+          .from('citas')
+          .update(payload)
+          .eq('id', editingCitaId)
+          .eq('user_id', session.user.id)
+          .select()
 
-          if (error) throw error
+        if (error) throw error
 
-          if (data && data[0]) {
-            setCitas(prev => prev.map(c => c.id === editingCitaId ? data[0] : c))
-            showToast('Cita actualizada con éxito.')
-          } else {
-            reloadFromSupabase()
-          }
+        if (data && data[0]) {
+          setCitas(prev => prev.map(c => c.id === editingCitaId ? data[0] : c))
+          showToast('Cita actualizada con éxito.')
         } else {
-          const { data, error } = await supabase
-            .from('citas')
-            .insert([payload])
-            .select()
-
-          if (error) throw error
-
-          if (data && data[0]) {
-            setCitas(prev => [...prev, data[0]])
-          } else {
-            reloadFromSupabase()
-          }
-          showToast('¡Cita registrada con éxito en Supabase!')
+          reloadFromSupabase()
         }
-      } catch (err) {
-        console.error('Error al guardar en Supabase:', err)
-        setIsOnline(false)
-        showToast('No se pudo guardar la cita.', 'error')
-        setIsSubmitting(false)
-        return
+      } else {
+        const { data, error } = await supabase
+          .from('citas')
+          .insert([payload])
+          .select()
+
+        if (error) throw error
+
+        if (data && data[0]) {
+          setCitas(prev => [...prev, data[0]])
+        } else {
+          reloadFromSupabase()
+        }
+        showToast('¡Cita registrada con éxito en Supabase!')
       }
-    } else {
-      console.warn('No se puede guardar la cita: Supabase no está configurado.')
-      showToast('Configura Supabase para guardar citas.', 'error')
+    } catch (err) {
+      console.error('Error al guardar en Supabase:', err)
+      showToast('No se pudo guardar la cita en Supabase. Revisa tu conexión y la configuración de la tabla.', 'error')
       setIsSubmitting(false)
       return
     }
@@ -527,7 +521,7 @@ export default function App() {
   const handleUpdateStatus = async (id, newStatus) => {
     const normalizedStatus = newStatus.toLowerCase()
 
-    if (isOnline && isSupabaseConfigured()) {
+    if (supabase && session?.user?.id) {
       try {
         const { error } = await supabase
           .from('citas')
@@ -541,18 +535,19 @@ export default function App() {
         showToast(`Cita marcada como "${newStatus}"`)
       } catch (err) {
         console.error('Error al actualizar en Supabase:', err)
-        setIsOnline(false)
         showToast('No se pudo actualizar la cita.', 'error')
       }
+    } else if (!session?.user?.id) {
+      showToast('Tu sesión no está activa. Inicia sesión de nuevo para actualizar citas.', 'error')
     } else {
-      showToast('Configura Supabase para actualizar citas.', 'error')
+      showToast('Supabase no está configurado en esta compilación de la app.', 'error')
     }
   }
 
   const handleDeleteCita = async (id) => {
     if (!window.confirm('¿Deseas eliminar esta cita permanentemente?')) return
 
-    if (isOnline && isSupabaseConfigured()) {
+    if (supabase && session?.user?.id) {
       try {
         const { error } = await supabase
           .from('citas')
@@ -566,11 +561,12 @@ export default function App() {
         showToast('Cita eliminada')
       } catch (err) {
         console.error('Error al eliminar en Supabase:', err)
-        setIsOnline(false)
         showToast('No se pudo eliminar la cita.', 'error')
       }
+    } else if (!session?.user?.id) {
+      showToast('Tu sesión no está activa. Inicia sesión de nuevo para eliminar citas.', 'error')
     } else {
-      showToast('Configura Supabase para eliminar citas.', 'error')
+      showToast('Supabase no está configurado en esta compilación de la app.', 'error')
     }
   }
 
