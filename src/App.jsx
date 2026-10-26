@@ -108,6 +108,7 @@ export default function App() {
   const [isOnline, setIsOnline] = useState(() => isSupabaseConfigured())
   const [showQuickBookModal, setShowQuickBookModal] = useState(false)
   const [showIncomeHistoryModal, setShowIncomeHistoryModal] = useState(false)
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const [toastMessage, setToastMessage] = useState(null)
   const [selectedDate, setSelectedDate] = useState(todayString)
   const [calendarMonth, setCalendarMonth] = useState(() => {
@@ -559,6 +560,20 @@ export default function App() {
         </button>
       </aside>
 
+      <header className="mobile-app-header">
+        <div className="mobile-brand">
+          <div className="brand-mark">MS</div>
+          <div>
+            <strong>Your Agenda</strong>
+            <span>Nail Art &amp; Care</span>
+          </div>
+        </div>
+        <button className="mobile-logout-button" onClick={() => showToast('Sesión cerrada', 'info')}>
+          <LogOut size={17} />
+          Cerrar sesión
+        </button>
+      </header>
+
       <main className="main-panel">
         {activeView === 'inicio' ? (
           <section className="home-view">
@@ -705,7 +720,17 @@ export default function App() {
             </header>
 
             <section className="filters-card" aria-label="Filtros de citas">
-              <div className="filter-row">
+              <button
+                className="filters-toggle"
+                onClick={() => setIsFiltersOpen(open => !open)}
+                aria-expanded={isFiltersOpen}
+                aria-controls="appointment-filters"
+              >
+                <Filter size={17} />
+                Filtros
+                <span>{isFiltersOpen ? '−' : '+'}</span>
+              </button>
+              <div id="appointment-filters" className={`filter-row ${isFiltersOpen ? 'filters-open' : ''}`}>
                 <label className="search-field">
                   <Search size={17} />
                   <input
@@ -821,6 +846,44 @@ export default function App() {
                 </table>
               </div>
 
+              <div className="appointment-cards">
+                {currentCitas.length === 0 ? (
+                  <p className="empty-appointment-cards">No se encontraron citas con estos filtros.</p>
+                ) : currentCitas.map(cita => {
+                  const estado = String(cita.estado || '').toLowerCase()
+                  const isConfirmed = estado === 'completada' || estado === 'confirmada'
+                  const isPending = estado === 'pendiente'
+
+                  return (
+                    <article className="appointment-card" key={cita.id}>
+                      <div className="appointment-card-heading">
+                        <div className="appointment-card-client">
+                          <span className="avatar-pill">{(cita.nombre_cliente || cita.cliente || 'C').charAt(0).toUpperCase()}</span>
+                          <strong>{cita.nombre_cliente || cita.cliente || 'Clienta'}</strong>
+                        </div>
+                        <span className={`status-badge ${isConfirmed ? 'confirmed' : isPending ? 'pending' : 'cancelled'}`}>
+                          {getEstadoLabel(cita.estado)}
+                        </span>
+                      </div>
+                      <dl className="appointment-card-details">
+                        <div><dt>Fecha</dt><dd>{formatHumanDate(cita.fecha)}</dd></div>
+                        <div><dt>Hora</dt><dd>{formatTime12Hour(cita.hora)}</dd></div>
+                        <div><dt>Servicio</dt><dd>{cita.servicio}</dd></div>
+                        <div><dt>Precio</dt><dd>{formatMoney(cita.precio)}</dd></div>
+                      </dl>
+                      <div className="table-actions appointment-card-actions">
+                        <button className="icon-button edit" onClick={() => handleOpenEditAppointmentModal(cita)} title="Editar cita" aria-label="Editar cita">
+                          <Pencil size={17} />
+                        </button>
+                        <button className="icon-button delete" onClick={() => handleDeleteCita(cita.id)} title="Eliminar cita" aria-label="Eliminar cita">
+                          <Trash2 size={17} />
+                        </button>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+
               <div className="pagination">
                 <button className="page-arrow" onClick={() => setCurrentPage(page => Math.max(1, page - 1))} disabled={currentPage === 1}>
                   <ChevronLeft size={16} />
@@ -898,6 +961,26 @@ export default function App() {
           </section>
         )}
       </main>
+
+      <nav className="bottom-navigation" aria-label="Navegación principal">
+        <button className={`bottom-nav-button ${activeView === 'inicio' ? 'active' : ''}`} onClick={() => setActiveView('inicio')}>
+          <Home size={21} />
+          <span>Inicio</span>
+        </button>
+        <button className={`bottom-nav-button ${activeView === 'citas' ? 'active' : ''}`} onClick={() => setActiveView('citas')}>
+          <Calendar size={21} />
+          <span>Citas</span>
+        </button>
+        <button className={`bottom-nav-button ${activeView === 'horarios' ? 'active' : ''}`} onClick={() => setActiveView('horarios')}>
+          <Clock size={21} />
+          <span>Horarios</span>
+        </button>
+      </nav>
+
+      <button className="mobile-book-button" onClick={() => handleOpenNewAppointmentModal(selectedDate)} aria-label="Agendar cita">
+        <PlusCircle size={20} />
+        <span>Agendar cita</span>
+      </button>
 
       {showQuickBookModal && (
         <div className="modal-overlay" onClick={() => setShowQuickBookModal(false)}>

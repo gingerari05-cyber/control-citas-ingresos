@@ -219,10 +219,11 @@ body {
 
 .income-day-card {
   display: flex;
+  order: 1;
   align-items: center;
   gap: 16px;
   width: 100%;
-  max-width: 420px;
+  max-width: none;
   background: linear-gradient(135deg, #fffdfd 0%, #fef0f5 100%);
   border: 1px solid #f5dce5;
   border-radius: 22px;
@@ -273,8 +274,14 @@ body {
   padding: 18px 18px 20px;
 }
 
-.home-day-panel {
+.home-calendar-panel {
+  order: 3;
   grid-column: 1 / -1;
+}
+
+.home-day-panel {
+  grid-column: auto;
+  order: 2;
 }
 
 .compact-top-controls {
@@ -2108,5 +2115,552 @@ body {
   .month-display-title {
     font-size: 18px;
     min-width: 140px;
+  }
+}
+
+/* Mobile-first application shell and touch targets. */
+html,
+body,
+#root,
+.mi-salon-app,
+.main-panel,
+.home-view,
+.schedule-view,
+.table-card,
+.filters-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+svg,
+table {
+  max-width: 100%;
+}
+
+.mobile-app-header,
+.bottom-navigation,
+.mobile-book-button,
+.filters-toggle,
+.appointment-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  .mi-salon-app {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: clip;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .mobile-app-header {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 64px;
+    padding: calc(8px + env(safe-area-inset-top)) 16px 8px;
+    background: linear-gradient(135deg, var(--wine-900) 0%, #55273a 100%);
+    color: #fff;
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .mobile-brand .brand-mark {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    font-size: 0.9rem;
+  }
+
+  .mobile-brand > div:last-child {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+  }
+
+  .mobile-brand strong {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .mobile-brand span {
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.72rem;
+  }
+
+  .mobile-logout-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.78rem;
+  }
+
+  .main-panel {
+    width: 100%;
+    margin: 0;
+    padding: 16px 14px calc(28px + env(safe-area-inset-bottom));
+    overflow-x: clip;
+  }
+
+  .content-header {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 17px;
+  }
+
+  .header-title-wrap {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .header-title-icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+
+  .header-title-wrap h2 {
+    font-size: clamp(1.35rem, 6vw, 1.8rem);
+    overflow-wrap: anywhere;
+  }
+
+  .header-title-wrap p {
+    margin-top: 3px;
+    font-size: 0.82rem;
+  }
+
+  .content-header > .primary-button {
+    display: none;
+  }
+
+  .home-view,
+  .schedule-view {
+    gap: 14px;
+  }
+
+  .home-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .home-calendar-panel,
+  .home-day-panel {
+    grid-column: 1;
+    width: 100%;
+    padding: 14px;
+  }
+
+  .home-cita-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .home-cita-item > .status-badge {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .calendar-header-banner,
+  .compact-top-controls,
+  .month-nav-group {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .compact-top-controls {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .month-display-title {
+    min-width: 0;
+  }
+
+  .filters-card {
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 17px;
+  }
+
+  .filters-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 9px;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 8px;
+    color: var(--wine-900);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .filters-toggle span {
+    margin-left: auto;
+    font-size: 1.25rem;
+  }
+
+  .filter-row {
+    display: none;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding-top: 8px;
+  }
+
+  .filter-row.filters-open {
+    display: grid;
+  }
+
+  .search-field,
+  .select-field,
+  .date-field {
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 12px;
+  }
+
+  .search-field input,
+  .select-field select,
+  .date-field input,
+  .form-field input,
+  .form-field select,
+  .input-with-icon input {
+    min-width: 0;
+    font-size: 16px;
+  }
+
+  .table-card {
+    margin-top: 14px;
+    padding: 14px 12px;
+    border-radius: 17px;
+  }
+
+  .table-headline {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 2px 2px 12px;
+  }
+
+  .table-headline h3 {
+    font-size: 1.15rem;
+  }
+
+  .mini-stats {
+    gap: 6px 10px;
+    font-size: 0.82rem;
+  }
+
+  .table-wrapper {
+    display: none;
+  }
+
+  .appointment-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .appointment-card {
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 5px 14px rgba(107, 48, 76, 0.05);
+  }
+
+  .appointment-card-heading,
+  .appointment-card-client {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .appointment-card-heading {
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .appointment-card-client {
+    gap: 9px;
+  }
+
+  .appointment-card-client strong {
+    overflow-wrap: anywhere;
+  }
+
+  .appointment-card-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 10px;
+    margin: 14px 0;
+  }
+
+  .appointment-card-details > div {
+    min-width: 0;
+  }
+
+  .appointment-card-details dt {
+    margin-bottom: 3px;
+    color: var(--text-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .appointment-card-details dd {
+    margin: 0;
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+  }
+
+  .appointment-card-actions {
+    justify-content: flex-end;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+
+  .empty-appointment-cards {
+    padding: 18px 8px;
+    color: var(--text-soft);
+    text-align: center;
+  }
+
+  .pagination {
+    padding-top: 12px;
+  }
+
+  .schedule-card {
+    padding: 10px;
+    border-radius: 17px;
+  }
+
+  .schedule-table-wrapper {
+    overflow: visible;
+  }
+
+  .schedule-table {
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 12px 8px;
+    overflow-wrap: anywhere;
+  }
+
+  .schedule-table th:first-child {
+    width: 38%;
+  }
+
+  .scheduled-appointment {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px;
+  }
+
+  .scheduled-time {
+    min-width: 0;
+  }
+
+  .bottom-navigation {
+    position: fixed;
+    z-index: 40;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-height: calc(62px + env(safe-area-inset-bottom));
+    padding: 5px 10px calc(5px + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(236, 223, 230, 0.95);
+    background: rgba(255, 253, 250, 0.97);
+    box-shadow: 0 -8px 24px rgba(77, 28, 43, 0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .bottom-nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    min-height: 48px;
+    color: var(--text-soft);
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .bottom-nav-button.active {
+    color: var(--wine-900);
+  }
+
+  .mobile-book-button {
+    position: fixed;
+    z-index: 45;
+    right: 16px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 50px;
+    padding: 0 17px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--wine-900) 0%, var(--rose-strong) 100%);
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(107, 48, 76, 0.3);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .toast-notice {
+    right: 12px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+    left: 12px;
+    justify-content: center;
+    max-width: calc(100% - 24px);
+    font-size: 0.85rem;
+  }
+
+  .modal-overlay {
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .modal-dialog,
+  .income-history-modal {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+  }
+
+  .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 16px;
+    overscroll-behavior: contain;
+  }
+
+  .booking-form {
+    gap: 12px;
+  }
+
+  .two-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .service-chip {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .form-field {
+    padding: 10px 12px;
+  }
+
+  .input-with-icon {
+    min-height: 28px;
+  }
+
+  .submit-button,
+  .secondary-button,
+  .status-option {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 420px) {
+  .main-panel {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .mobile-app-header {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .mobile-logout-button {
+    padding: 0 8px;
+    font-size: 0.72rem;
+  }
+
+  .mobile-book-button {
+    right: 12px;
+  }
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  button,
+  .page-arrow,
+  .page-number,
+  .icon-button,
+  .nav-button,
+  .primary-button,
+  .logout-button,
+  .submit-button,
+  .secondary-button {
+    min-height: 44px;
   }
 }
