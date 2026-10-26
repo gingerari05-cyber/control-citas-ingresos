@@ -2664,3 +2664,511 @@ textarea {
     min-height: 44px;
   }
 }
+
+.sidebar-brand {
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+
+.mobile-brand {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.home-welcome {
+  padding: 8px 4px 2px;
+}
+
+.home-welcome > span {
+  color: var(--rose-deep);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-welcome h1 {
+  margin: 4px 0;
+  color: var(--wine-900);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  overflow-wrap: anywhere;
+}
+
+.home-welcome p {
+  color: var(--text-soft);
+}
+
+.home-today-panel,
+.calendar-view > .home-calendar-panel,
+.calendar-selected-day {
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 10px 24px rgba(113, 63, 78, 0.04);
+}
+
+.home-view {
+  gap: 16px;
+}
+
+.income-day-card {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.income-day-count {
+  margin-left: auto;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.home-day-header h2 {
+  margin: 4px 0 0;
+  font-size: 1.2rem;
+  overflow-wrap: anywhere;
+}
+
+.calendar-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.calendar-view > .home-calendar-panel {
+  order: initial;
+  grid-column: auto;
+}
+
+.calendar-header-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.calendar-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--wine-900);
+  font-size: 1.2rem;
+}
+
+.calendar-top-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.month-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-month-nav,
+.btn-today-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--wine-900);
+}
+
+.btn-today-chip {
+  padding: 0 12px;
+  font-weight: 700;
+}
+
+.month-display-title {
+  min-width: 0;
+  font-weight: 700;
+  color: var(--wine-900);
+  text-align: center;
+}
+
+.calendar-day-tile.busy {
+  background: #fff0f4;
+  border-top-color: var(--rose-strong);
+}
+
+.calendar-day-tile.busy:hover {
+  background: #ffe4eb;
+}
+
+.calendar-day-tile.available {
+  background: #eff9f3;
+  border-top-color: #52b788;
+}
+
+.calendar-day-tile.available:hover {
+  background: #e2f4e9;
+}
+
+.calendar-day-tile.is-selected {
+  outline: 2px solid var(--wine-700);
+  outline-offset: -2px;
+}
+
+.calendar-day-tile {
+  border: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.calendar-day-tile .legend-dot.busy {
+  background: var(--rose-strong);
+}
+
+.calendar-day-tile .legend-dot.available {
+  background: #52b788;
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-appointment-card {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) minmax(0, 1.5fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #f2dfe6;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.schedule-appointment-date,
+.schedule-appointment-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--wine-900);
+  font-weight: 700;
+}
+
+.schedule-appointment-date span,
+.schedule-appointment-info > * {
+  overflow-wrap: anywhere;
+}
+
+.schedule-appointment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.schedule-appointment-info span {
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+
+.schedule-appointment-time {
+  white-space: nowrap;
+}
+
+.mobile-book-button {
+  position: fixed;
+  z-index: 45;
+  right: 24px;
+  bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--wine-900) 0%, var(--rose-strong) 100%);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(107, 48, 76, 0.3);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.auth-screen {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse at top left, rgba(217, 114, 138, 0.16), transparent 42%),
+    linear-gradient(160deg, #f6edf1 0%, #fff8fa 70%, #fdf7f9 100%);
+}
+
+.auth-card {
+  width: min(100%, 460px);
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  color: var(--wine-900);
+}
+
+.auth-brand .brand-mark {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--wine-900), var(--rose-strong));
+  color: #fff;
+}
+
+.auth-brand h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.5rem;
+}
+
+.auth-brand p {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.auth-heading h2 {
+  color: var(--text-main);
+  font-size: 1.5rem;
+}
+
+.auth-heading p {
+  margin-top: 5px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.auth-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 20px 0;
+  padding: 4px;
+  border-radius: 14px;
+  background: #f8edf1;
+}
+
+.auth-mode-switch button {
+  min-height: 44px;
+  border-radius: 11px;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.auth-mode-switch button.active {
+  background: #fff;
+  color: var(--wine-900);
+  box-shadow: 0 2px 8px rgba(107, 48, 76, 0.1);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.auth-form input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  outline-color: var(--rose-strong);
+  background: #fff;
+  color: var(--text-main);
+  font-size: 16px;
+}
+
+.auth-error {
+  padding: 10px 12px;
+  border: 1px solid #f0bdc8;
+  border-radius: 12px;
+  background: #fff1f4;
+  color: #8d2947;
+  font-size: 0.88rem;
+}
+
+.auth-submit-button {
+  min-height: 48px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--wine-900), var(--rose-strong));
+  color: #fff;
+  font-weight: 800;
+}
+
+.auth-submit-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.auth-loading {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  color: var(--wine-900);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .auth-screen {
+    align-items: start;
+    padding: calc(18px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .auth-card {
+    margin: auto 0;
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+
+  .income-day-card {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .income-day-count {
+    width: 100%;
+    margin-left: 68px;
+  }
+
+  .home-today-panel,
+  .calendar-view > .home-calendar-panel,
+  .calendar-selected-day {
+    padding: 13px;
+    border-radius: 17px;
+  }
+
+  .calendar-header-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .calendar-day-tile {
+    min-width: 0;
+    min-height: 64px;
+    padding: 5px 3px;
+  }
+
+  .calendar-day-tile .availability-pill {
+    gap: 3px;
+    padding: 2px 3px;
+    font-size: 0.58rem;
+  }
+
+  .calendar-day-tile .day-number-label {
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+  }
+
+  .calendar-day-tile .badge-today-mini {
+    font-size: 0.48rem;
+  }
+
+  .schedule-appointment-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .schedule-appointment-date {
+    grid-column: 1 / -1;
+  }
+
+  .schedule-appointment-time {
+    justify-self: end;
+    font-size: 0.88rem;
+  }
+
+  .schedule-heading > .primary-button {
+    display: none;
+  }
+
+  .calendar-view > .content-header {
+    flex-wrap: wrap;
+  }
+
+  .calendar-manage-button {
+    display: inline-flex;
+    flex: 1 0 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .bottom-navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bottom-nav-button {
+    font-size: 0.76rem;
+  }
+
+  .mobile-book-button {
+    right: 14px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .auth-screen {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .auth-card {
+    padding: 18px 14px;
+  }
+
+  .schedule-appointment-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .schedule-appointment-time {
+    justify-self: start;
+  }
+
+  .calendar-day-tile .availability-pill .legend-dot {
+    display: none;
+  }
+}
